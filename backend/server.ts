@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { connectDB } from './DB/connectDB';
+import { connectDB } from './db/connectDB';
+import productRoute from './routes/product.route';
 
 dotenv.config();
 
@@ -11,9 +12,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello TypeScript with Express!');
-});
+app.use("/api/products", productRoute)
+
 
 app.listen(PORT, () => {
     connectDB();

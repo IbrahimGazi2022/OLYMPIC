@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Product 1",
+        "size": "50 gm",
+        "price": 100
+    },
+    {
+        "name": "Product 2",
+        "size": "100 gm",
+        "price": 100
+    },
+    {
+        "name": "Product 3",
+        "size": "150 gm",
+        "price": 300
+    }
+]
