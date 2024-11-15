@@ -1,0 +1,14 @@
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 15px 0 0 27px;
+    color: white;
+}
+
+.logo span {
+    display: flex;
+}
+
+.logo h6 {
+    margin: 5px 0 0 10px;
+}
