@@ -1,14 +1,22 @@
 import { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined, } from '@ant-design/icons';
+import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PlusSquareFilled, ProductFilled, UserOutlined, } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+    const location = useLocation(); // 1 -Get current location
+    const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+
+    // 2 - Dynamically set the selected menu key based on current URL path
+    let selectedKey = '';
+    if (location.pathname === '/') {
+        selectedKey = '1';
+    } else if (location.pathname === '/all-products') {
+        selectedKey = '2';
+    }
 
     return (
         <Layout>
@@ -27,22 +35,22 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                 <Menu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['1']}
+                    selectedKeys={[selectedKey]} // 3 - Dynamically set selected key
                     items={[
                         {
                             key: '1',
-                            icon: <UserOutlined />,
-                            label: 'nav 1',
+                            icon: <HomeOutlined />,
+                            label: <Link to="/">Home</Link>,
                         },
                         {
                             key: '2',
-                            icon: <VideoCameraOutlined />,
-                            label: 'nav 2',
+                            icon: <ProductFilled />,
+                            label: <Link to="/all-products">Product</Link>,
                         },
                         {
                             key: '3',
-                            icon: <UploadOutlined />,
-                            label: 'nav 3',
+                            icon: <PlusSquareFilled />,
+                            label: <Link to="/all-products">Add Product</Link>,
                         },
                     ]}
                 />
