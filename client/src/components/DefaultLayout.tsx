@@ -18,6 +18,8 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         selectedKey = '2';
     } else if (location.pathname === '/add-products') {
         selectedKey = '3';
+    } else if (location.pathname === '/summary') {
+        selectedKey = '4';
     }
 
     return (
@@ -53,6 +55,11 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                             key: '3',
                             icon: <PlusSquareFilled />,
                             label: <Link to="/add-products">Add Product</Link>,
+                        },
+                        {
+                            key: '4',
+                            icon: <PlusSquareFilled />,
+                            label: <Link to="/summary">Summary</Link>,
                         },
                     ]}
                 />

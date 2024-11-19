@@ -1,8 +1,17 @@
 import axios from "axios"
 import { Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react"
 
 import DefaultLayout from "../components/DefaultLayout"
+
+// Define the type for your product data
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  size: string;
+}
 
 const AllProducts = () => {
 
@@ -21,30 +30,40 @@ const AllProducts = () => {
   }, [])
 
   // Table Columns
-  const columns = [
+  const columns: ColumnsType<Product> = [
     {
-      title: 'S/N',
-      render: (text, record, index) => index + 1, // Serial number column
-      key: "serial", // Unique key for this column
-      width: 50,
-      align: "center",
+        title: 'S/N',
+        render: (_: any, __: Product, index: number) => index + 1, // Serial number column
+        key: "serial", // Unique key for this column
+        width: 50,
+        align: "center",
     },
     {
-      title: 'Name',         // Column header
-      dataIndex: 'name',     // Data property from the data source
-      key: 'name',           // Unique identifier for this column
+        title: ' Product Name',         // Column header
+        dataIndex: 'name',     // Data property from the data source
+        key: 'name',           // Unique identifier for this column
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
+        title: 'Pack Size',
+        dataIndex: 'size',
+        key: 'size',
     },
     {
-      title: 'Size',
-      dataIndex: 'size',
-      key: 'price',
+        title: 'TP',
+        dataIndex: 'tp',
+        key: 'tp',
     },
-  ];
+    {
+        title: 'Quantity',
+        dataIndex: 'qty',
+        key: 'qty',
+    },
+    {
+        title: 'Total Value',
+        dataIndex: 'price',
+        key: 'price',
+    }
+];
 
   return (
     <DefaultLayout>

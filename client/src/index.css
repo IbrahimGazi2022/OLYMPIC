@@ -12,3 +12,10 @@
 .logo h6 {
     margin: 5px 0 0 10px;
 }
+
+.table-footer {
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 65px  5px;
+}
