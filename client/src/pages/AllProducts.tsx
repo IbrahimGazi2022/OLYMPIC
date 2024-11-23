@@ -57,11 +57,6 @@ const AllProducts = () => {
         title: 'Quantity',
         dataIndex: 'qty',
         key: 'qty',
-    },
-    {
-        title: 'Total Value',
-        dataIndex: 'price',
-        key: 'price',
     }
 ];
 

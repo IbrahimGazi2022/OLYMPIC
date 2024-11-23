@@ -21,32 +21,51 @@ const Summary = () => {
     // Get All Products Function
     const [productsData, setProductsData] = useState<Product[]>([]);
 
+    // Load from API or `localStorage` on initial render
+    useEffect(() => {
+        const storedData = localStorage.getItem("productsData");
+        if (storedData) {
+            try {
+                setProductsData(JSON.parse(storedData));
+            } catch (error) {
+                console.error("Failed to parse localStorage data:", error);
+                getAllProducts();
+            }
+        } else {
+            getAllProducts();
+        }
+    }, []);
+
     const getAllProducts = async () => {
         try {
             const response = await axios.get("http://localhost:5000/api/products/all-products");
-            setProductsData(response.data);
+            const initialData = response.data.map((product: Product) => ({
+                ...product,
+                return: 0,
+                damage: 0,
+            }));
+            setProductsData(initialData);
+            localStorage.setItem("productsData", JSON.stringify(initialData)); // Sync to localStorage
         } catch (error) {
-            console.log(error);
+            console.log("Failed to fetch products:", error);
         }
     };
 
-    useEffect(() => {
-        getAllProducts();
-    }, []);
-
     // Handle return and damage value change
-    // Union Type Parameter ( field: "return" | "damage" )
     const handleValueChange = (field: "return" | "damage", value: number, record: Product) => {
         const updatedData = productsData.map((product) => {
             if (product._id === record._id) {
                 return {
-                    ...product, // Keep other products unchanged
-                    [field]: value // Update only the specified field
+                    ...product,
+                    [field]: value,
                 };
             }
             return product;
         });
         setProductsData(updatedData);
+
+        // Save updated data to localStorage
+        localStorage.setItem("productsData", JSON.stringify(updatedData));
     };
 
     // Calculate Total Value for each product
@@ -60,12 +79,11 @@ const Summary = () => {
         return total + calculateTotalValue(product);
     }, 0);
 
-
     // Table Columns
     const columns: ColumnsType<Product> = [
         {
             title: "S/N",
-            render: (_: any, __: Product, index: number) => index + 1, // Serial number column
+            render: (_: any, __: Product, index: number) => index + 1,
             key: "serial",
             width: 50,
             align: "center",
@@ -88,31 +106,31 @@ const Summary = () => {
         {
             title: "Return Qty",
             key: "return",
-            render: ((_: any, record: Product) => (
+            render: (_: any, record: Product) => (
                 <InputNumber
                     min={0}
-                    defaultValue={record.return}
+                    value={record.return}
                     onChange={(value) => handleValueChange("return", value || 0, record)}
                 />
-            ))
+            ),
         },
         {
             title: "Damage Qty",
             key: "damage",
-            render: ((_: any, record: Product) => (
+            render: (_: any, record: Product) => (
                 <InputNumber
                     min={0}
-                    defaultValue={record.damage}
+                    value={record.damage}
                     onChange={(value) => handleValueChange("damage", value || 0, record)}
                 />
-            ))
+            ),
         },
         {
             title: "Sales Qty",
             key: "sales",
-            render: ((_: any, record: Product) => (
+            render: (_: any, record: Product) => (
                 record.qty - (record.return || 0) - (record.damage || 0)
-            )),
+            ),
         },
         {
             title: "TP",
@@ -122,7 +140,7 @@ const Summary = () => {
         {
             title: "Total Value",
             key: "totalValue",
-            render: ((_: any, record: Product) => calculateTotalValue(record)),
+            render: (_: any, record: Product) => calculateTotalValue(record).toFixed(2),
         },
     ];
 
