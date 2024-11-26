@@ -49,7 +49,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                         {
                             key: '2',
                             icon: <ProductFilled />,
-                            label: <Link to="/all-products">Product</Link>,
+                            label: <Link to="/all-products">Product Stock</Link>,
                         },
                         {
                             key: '3',

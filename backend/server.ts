@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use("/api/products", productRoute)
 
-
+        
 app.listen(PORT, () => {
     connectDB();
     console.log(`Server running on http://localhost:${PORT}`);

@@ -17,15 +17,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    tp: {
-        type: Number,
-        required: true,
-    },
-    return: {
-        type: Number,
-        required: true,
-    },
-
 });
 
 export const productModel = mongoose.model('product', productSchema);

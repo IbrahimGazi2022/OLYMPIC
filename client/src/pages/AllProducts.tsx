@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react"
 
 import DefaultLayout from "../components/DefaultLayout"
+import { API_URL } from '../utils/url.config';
 
 // Define the type for your product data
 interface Product {
@@ -19,7 +20,7 @@ const AllProducts = () => {
   const [productsData, setProductsData] = useState([])
   const getAllProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/all-products')
+      const response = await axios.get(`${API_URL}/all-products`)
       setProductsData(response.data)
     } catch (error) {
       console.log(error)
@@ -32,37 +33,37 @@ const AllProducts = () => {
   // Table Columns
   const columns: ColumnsType<Product> = [
     {
-        title: 'S/N',
-        render: (_: any, __: Product, index: number) => index + 1, // Serial number column
-        key: "serial", // Unique key for this column
-        width: 50,
-        align: "center",
+      title: 'S/N',
+      render: (_: any, __: Product, index: number) => index + 1, // Serial number column
+      key: "serial", // Unique key for this column
+      width: 50,
+      align: "center",
     },
     {
-        title: ' Product Name',         // Column header
-        dataIndex: 'name',     // Data property from the data source
-        key: 'name',           // Unique identifier for this column
+      title: ' Product Name',         // Column header
+      dataIndex: 'name',     // Data property from the data source
+      key: 'name',           // Unique identifier for this column
     },
     {
-        title: 'Pack Size',
-        dataIndex: 'size',
-        key: 'size',
+      title: 'Pack Size',
+      dataIndex: 'size',
+      key: 'size',
     },
     {
-        title: 'TP',
-        dataIndex: 'tp',
-        key: 'tp',
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
     },
     {
-        title: 'Quantity',
-        dataIndex: 'qty',
-        key: 'qty',
+      title: 'Quantity',
+      dataIndex: 'qty',
+      key: 'qty',
     }
-];
+  ];
 
   return (
     <DefaultLayout>
-      <h1>All Products List</h1>
+      <h1>Product Stock</h1>
       <Table
         dataSource={productsData}
         columns={columns}

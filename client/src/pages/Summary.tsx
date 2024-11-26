@@ -146,7 +146,7 @@ const Summary = () => {
 
     return (
         <DefaultLayout>
-            <h1>All Products List</h1>
+            <h1>Summary Page</h1>
             <Table
                 dataSource={productsData}
                 columns={columns}

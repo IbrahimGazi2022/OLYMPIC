@@ -9,3 +9,15 @@ export const allProduct = async (req: Request, res: Response): Promise<void> => 
         res.status(500).json({ message: "Error fetching products", error });
     }
 };
+
+export const addProduct = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const newItem = new productModel(req.body);
+        await newItem.save();
+        res.send("Item Added Successfully");
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products", error });
+    }
+};
+
+
