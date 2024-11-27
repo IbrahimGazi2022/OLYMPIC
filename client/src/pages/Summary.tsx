@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 
 import DefaultLayout from "../components/DefaultLayout";
+import { API_URL } from "../utils/url.config";
 
 // Define the type for your product data
 interface Product {
@@ -11,7 +12,6 @@ interface Product {
     name: string;
     price: number;
     size: string;
-    tp: number;
     qty: number;
     return: number;
     damage: number;
@@ -26,7 +26,9 @@ const Summary = () => {
         const storedData = localStorage.getItem("productsData");
         if (storedData) {
             try {
-                setProductsData(JSON.parse(storedData));
+                const parsedData = JSON.parse(storedData);
+                setProductsData(parsedData);
+                console.log("Loaded from localStorage:", parsedData);
             } catch (error) {
                 console.error("Failed to parse localStorage data:", error);
                 getAllProducts();
@@ -38,7 +40,7 @@ const Summary = () => {
 
     const getAllProducts = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/products/all-products");
+            const response = await axios.get(`${API_URL}/all-products`)
             const initialData = response.data.map((product: Product) => ({
                 ...product,
                 return: 0,
@@ -71,7 +73,7 @@ const Summary = () => {
     // Calculate Total Value for each product
     const calculateTotalValue = (product: Product) => {
         const sales = (product.qty || 0) - (product.return || 0) - (product.damage || 0);
-        return sales * (product.tp || 0);
+        return sales * (product.price || 0);
     };
 
     // Calculate Grand Total
@@ -133,9 +135,9 @@ const Summary = () => {
             ),
         },
         {
-            title: "TP",
-            dataIndex: "tp",
-            key: "tp",
+            title: "Price",
+            dataIndex: "price",
+            key: "price",
         },
         {
             title: "Total Value",

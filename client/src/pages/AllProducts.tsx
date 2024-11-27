@@ -12,6 +12,7 @@ interface Product {
   name: string;
   price: number;
   size: string;
+  qty: number;
 }
 
 const AllProducts = () => {
@@ -45,7 +46,7 @@ const AllProducts = () => {
       key: 'name',           // Unique identifier for this column
     },
     {
-      title: 'Pack Size',
+      title: 'Pack Size (gm)',
       dataIndex: 'size',
       key: 'size',
     },

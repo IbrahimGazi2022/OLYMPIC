@@ -60,7 +60,7 @@ const AddProducts = () => {
                         { required: true, message: "Please enter the pack size!" },
                     ]}
                 >
-                    <InputNumber style={{ width: "100%" }} placeholder="Enter pack size" />
+                    <InputNumber addonAfter="gm" style={{ width: "100%" }} placeholder="Enter pack size" />
                 </Form.Item>
 
                 <Form.Item
