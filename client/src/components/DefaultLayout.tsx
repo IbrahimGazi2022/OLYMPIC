@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PlusSquareFilled, ProductFilled, UserOutlined, } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, } from '@ant-design/icons';
+import { Button, Layout, theme } from 'antd';
+import { useLocation } from 'react-router-dom';
+import MainMenu from '../utils/MainMenu';
 
 const { Header, Sider, Content } = Layout;
 
@@ -18,8 +19,10 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         selectedKey = '2';
     } else if (location.pathname === '/add-products') {
         selectedKey = '3';
-    } else if (location.pathname === '/summary') {
+    } else if (location.pathname === '/order-sheet') {
         selectedKey = '4';
+    } else if (location.pathname === '/summary') {
+        selectedKey = '5';
     }
 
     return (
@@ -36,33 +39,8 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                         <UserOutlined />{!collapsed && <h6>Ibrahim</h6>}
                     </h2>
                 </div>
-                <Menu
-                    theme="dark"
-                    mode="inline"
-                    selectedKeys={[selectedKey]} // 3 - Dynamically set selected key
-                    items={[
-                        {
-                            key: '1',
-                            icon: <HomeOutlined />,
-                            label: <Link to="/">Home</Link>,
-                        },
-                        {
-                            key: '2',
-                            icon: <ProductFilled />,
-                            label: <Link to="/all-products">Product Stock</Link>,
-                        },
-                        {
-                            key: '3',
-                            icon: <PlusSquareFilled />,
-                            label: <Link to="/add-products">Add Product</Link>,
-                        },
-                        {
-                            key: '4',
-                            icon: <PlusSquareFilled />,
-                            label: <Link to="/summary">Summary</Link>,
-                        },
-                    ]}
-                />
+                {/* Main Menu */}
+                <MainMenu selectedKey={selectedKey} />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }}>

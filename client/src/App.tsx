@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AllProducts from './pages/AllProducts';
 import AddProducts from './pages/AddProducts';
 import Summary from './pages/Summary';
+import OrderSheet from './pages/OrderSheet';
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/add-products" element={<AddProducts />} />
+          <Route path="/order-sheet" element={<OrderSheet  />} />
           <Route path="/summary" element={<Summary />} />
+
         </Routes>
       </Router>
     </div>
